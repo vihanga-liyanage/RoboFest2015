@@ -31,6 +31,7 @@ Serial.begin(9600);
 pinMode(dir1PinA,OUTPUT);
 pinMode(dir2PinA,OUTPUT);
 pinMode(speedPinA,OUTPUT);
+
 pinMode(dir1PinB,OUTPUT);
 pinMode(dir2PinB,OUTPUT);
 pinMode(speedPinB,OUTPUT);
@@ -53,7 +54,7 @@ case '1': // Motor 1 Forward
 analogWrite(speedPinA, 255);//Sets speed variable via PWM 
 digitalWrite(dir1PinA, LOW);
 digitalWrite(dir2PinA, HIGH);
-Serial.println("Motor 1 Forward"); // Prints out “Motor 1 Forward” on the serial monitor
+Serial.println("Motor 1 Forward"); // Prints out ï¿½Motor 1 Forwardï¿½ on the serial monitor
 Serial.println("   "); // Creates a blank line printed on the serial monitor
 break;
 
