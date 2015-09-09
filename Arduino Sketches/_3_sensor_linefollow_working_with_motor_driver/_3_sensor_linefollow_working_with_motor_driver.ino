@@ -78,32 +78,16 @@ void loop() {
   // make both motors same speed
   left = startSpeed;
   right = startSpeed;
-  // read the sensors and add the offsets
-  /*
-  IR1 = analogRead(1) + leftOffset;
-  IR2 = analogRead(2);
-  IR3 = analogRead(3) + rightOffset;
-  
-  if (IR1 > (IR3 + threshhold)) {
-    left = startSpeed + rotate;
-    right = startSpeed - rotate;
-  } else if (IR3 > (IR1 + threshhold)){
-    left = startSpeed - rotate;
-    right = startSpeed + rotate;
-  }
-  */
-  //special code
+  // read the sensors and print them
   IR1 = valueDegitalizer(analogRead(3));
   IR2 = valueDegitalizer(analogRead(7));
   IR3 = valueDegitalizer(analogRead(8));
-  
-  
   Serial.print(IR1);
   Serial.print(" ");
   Serial.print(IR2);
   Serial.print(" ");
   Serial.println(IR3);
-  
+  //Motor speed calculation
   if (IR1 > (IR3)) {
     left = startSpeed + rotate;
     right = startSpeed - rotate;
