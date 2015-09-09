@@ -47,36 +47,6 @@ void drive(int leftSpeed, int rightSpeed, boolean forward){ //if forward == fals
   }
 }
 //=============================================================================
-// Sensor calibration routine
-void calibrate() {
-  for (int x=0; x<10; x++) { // run this 10 times to obtain average
-    
-    IR1 = analogRead(1); // read the 3 sensors
-    IR2 = analogRead(2);
-    IR3 = analogRead(3);
-
-    Serial.print("Reading ");
-    Serial.println(x + 1);
-    
-    leftOffset = leftOffset + IR1; // add value of left sensor to total
-    centre = centre + IR2; // add value of centre sensor to total
-    rightOffset = rightOffset + IR3; // add value of right sensor to total
-  }
-  // obtain average for each sensor
-  leftOffset = leftOffset / 10;
-  rightOffset = rightOffset / 10;
-  centre = centre /10;
-  // calculate offsets for left and right sensors
-  leftOffset = centre - leftOffset;
-  rightOffset = centre - rightOffset;
-  Serial.println("Left centre right");
-  Serial.print(leftOffset);
-  Serial.print(" ");
-  Serial.print(centre);
-  Serial.print(" ");
-  Serial.println(rightOffset);
-  Serial.println("Calibrate done.");
-}
 
 void setup(){
   Serial.begin(9600);
