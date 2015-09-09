@@ -2,7 +2,7 @@ int LDR1, LDR2, LDR3; // sensor values
 // calibration offsets
 int leftOffset = 0, rightOffset = 0, centre = 0;
 // starting speed and rotation offset
-int startSpeed = 150, rotate = 30; 
+int startSpeed = 70, rotate = 30; 
 /* CHANGE START SPEED IF YOUR ROBOT IS TOO SLOW, AND CHANGE THE ROTATE VALUE ACCORDING TO YOUR 
 TURNING ANGLE OF BLACK LINE.*/
 // sensor threshold
@@ -92,24 +92,54 @@ void setup(){
   analogWrite(speedPinB,right);
 }
 
+int valueDegitalizer(int value){
+  if (value > 500) {
+    return 5; 
+  } else if (value < 10){
+    return 0;
+  } else {
+    return 5;
+  }
+}
+
 void loop() {
   // make both motors same speed
   left = startSpeed;
   right = startSpeed;
   // read the sensors and add the offsets
+  /*
   LDR1 = analogRead(1) + leftOffset;
   LDR2 = analogRead(2);
   LDR3 = analogRead(3) + rightOffset;
   
   if (LDR1 > (LDR3 + threshhold)) {
-    left = startSpeed - rotate;
-    right = startSpeed + rotate;
-  } else if (LDR3 > (LDR1 + threshhold)){
     left = startSpeed + rotate;
     right = startSpeed - rotate;
+  } else if (LDR3 > (LDR1 + threshhold)){
+    left = startSpeed - rotate;
+    right = startSpeed + rotate;
   }
-
-  if ((LDR1 > 0) && (LDR2 > 0) && (LDR3 > 0) && ((LDR1 + threshhold) < LDR2) && (LDR2 > (LDR3 + threshhold))){
+  */
+  //special code
+  LDR1 = valueDegitalizer(analogRead(3));
+  LDR2 = valueDegitalizer(analogRead(7));
+  LDR3 = valueDegitalizer(analogRead(8));
+  
+  
+  Serial.print(LDR1);
+  Serial.print(" ");
+  Serial.print(LDR2);
+  Serial.print(" ");
+  Serial.println(LDR3);
+  
+  if (LDR1 > (LDR3)) {
+    left = startSpeed + rotate;
+    right = startSpeed - rotate;
+  } else if (LDR3 > (LDR1)){
+    left = startSpeed - rotate;
+    right = startSpeed + rotate;
+  }
+  if ((LDR1 == LDR2) && (LDR1 == LDR3)){
     left = 0;
     right = 0;
   }
@@ -119,5 +149,6 @@ void loop() {
   Serial.print(right);
   Serial.println("");
   drive(left, right, true);
+  //delay(500);
   
 }
