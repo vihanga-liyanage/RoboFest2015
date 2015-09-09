@@ -1,4 +1,6 @@
-int LDR1, LDR2, LDR3; // sensor values
+// sensors
+int IR1, IR2, IR3, IR4, IR5, IR6;
+//sensor pins
 // calibration offsets
 int leftOffset = 0, rightOffset = 0, centre = 0;
 // starting speed and rotation offset
@@ -49,16 +51,16 @@ void drive(int leftSpeed, int rightSpeed, boolean forward){ //if forward == fals
 void calibrate() {
   for (int x=0; x<10; x++) { // run this 10 times to obtain average
     
-    LDR1 = analogRead(1); // read the 3 sensors
-    LDR2 = analogRead(2);
-    LDR3 = analogRead(3);
+    IR1 = analogRead(1); // read the 3 sensors
+    IR2 = analogRead(2);
+    IR3 = analogRead(3);
 
     Serial.print("Reading ");
     Serial.println(x + 1);
     
-    leftOffset = leftOffset + LDR1; // add value of left sensor to total
-    centre = centre + LDR2; // add value of centre sensor to total
-    rightOffset = rightOffset + LDR3; // add value of right sensor to total
+    leftOffset = leftOffset + IR1; // add value of left sensor to total
+    centre = centre + IR2; // add value of centre sensor to total
+    rightOffset = rightOffset + IR3; // add value of right sensor to total
   }
   // obtain average for each sensor
   leftOffset = leftOffset / 10;
@@ -108,38 +110,38 @@ void loop() {
   right = startSpeed;
   // read the sensors and add the offsets
   /*
-  LDR1 = analogRead(1) + leftOffset;
-  LDR2 = analogRead(2);
-  LDR3 = analogRead(3) + rightOffset;
+  IR1 = analogRead(1) + leftOffset;
+  IR2 = analogRead(2);
+  IR3 = analogRead(3) + rightOffset;
   
-  if (LDR1 > (LDR3 + threshhold)) {
+  if (IR1 > (IR3 + threshhold)) {
     left = startSpeed + rotate;
     right = startSpeed - rotate;
-  } else if (LDR3 > (LDR1 + threshhold)){
+  } else if (IR3 > (IR1 + threshhold)){
     left = startSpeed - rotate;
     right = startSpeed + rotate;
   }
   */
   //special code
-  LDR1 = valueDegitalizer(analogRead(3));
-  LDR2 = valueDegitalizer(analogRead(7));
-  LDR3 = valueDegitalizer(analogRead(8));
+  IR1 = valueDegitalizer(analogRead(3));
+  IR2 = valueDegitalizer(analogRead(7));
+  IR3 = valueDegitalizer(analogRead(8));
   
   
-  Serial.print(LDR1);
+  Serial.print(IR1);
   Serial.print(" ");
-  Serial.print(LDR2);
+  Serial.print(IR2);
   Serial.print(" ");
-  Serial.println(LDR3);
+  Serial.println(IR3);
   
-  if (LDR1 > (LDR3)) {
+  if (IR1 > (IR3)) {
     left = startSpeed + rotate;
     right = startSpeed - rotate;
-  } else if (LDR3 > (LDR1)){
+  } else if (IR3 > (IR1)){
     left = startSpeed - rotate;
     right = startSpeed + rotate;
   }
-  if ((LDR1 == LDR2) && (LDR1 == LDR3)){
+  if ((IR1 == IR2) && (IR1 == IR3)){
     left = 0;
     right = 0;
   }

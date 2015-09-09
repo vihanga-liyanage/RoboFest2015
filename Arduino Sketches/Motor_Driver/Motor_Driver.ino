@@ -49,7 +49,19 @@ void drive(int leftSpeed, int rightSpeed, boolean forward){ //if forward == fals
   }
 }
 
-void hardTurn(){
-  
+void hardTurn(boolean leftTurn, int Speed){ //pass true for a hard left turn
+  analogWrite(speedPinA, Speed - leftMotorOffset);
+  analogWrite(speedPinB, Speed - rightMotorOffset);
+  if (leftTurn) {
+    digitalWrite(dir1PinA, HIGH);
+    digitalWrite(dir2PinA, LOW);
+    digitalWrite(dir1PinB, LOW);
+    digitalWrite(dir2PinB, HIGH);
+  } else{
+    digitalWrite(dir1PinA, LOW);
+    digitalWrite(dir2PinA, HIGH);
+    digitalWrite(dir1PinB, HIGH);
+    digitalWrite(dir2PinB, LOW);
+  }
 }
 
